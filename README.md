@@ -1,4 +1,4 @@
-# ConvergeInc/LWH-UFSC Delta robot C program - Direct and inverse kinematics
+# ConvergeInc/LHW-UFSC Delta robot
 
 *[LHW-UFSC](http://www.lhw.ufsc.br/ "LHW-UFSC") developed Delta-ROBOT for technology demonstration, developed in colaboration with [Converge-ES](http://www.converge-es.com/ "Converge Engineering Solutions")*
 
