@@ -39,11 +39,11 @@ void loop()
 { 
   
   // Wait for serial input (min 3 bytes in buffer)
-  if (Serial.available() > 3) {
+  if (Serial.available() > 2) {
     // Read the first byte
     startbyte = Serial.read();
-    // If it's really the startbyte (255) ...
-    if (startbyte == 255) {
+    // If it's really the startbyte (254) ...
+    if (startbyte == 254) {
       // ... then get the next two bytes
       for (i=0;i<2;i++) {
         userInput[i] = Serial.read();
