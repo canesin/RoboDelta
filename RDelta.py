@@ -1,11 +1,14 @@
-from math import pi, cos, sqrt
+# -*- coding: utf-8 -*-
+
+from math import pi, cos, sqrt, atan, sin
 from serial import Serial
 
 # Parâmetros geométricos do robo
-f = 300.0
-e = 120.0
-re = 230.0
-rf = 80.0
+f = 264.85
+e = 126.22
+re = 280.0
+rf = 70.0
+
 # Constantes trigonométricas
 sin120 = sqrt(3)/2.0
 cos120 = -0.5
@@ -21,12 +24,13 @@ ser = Serial(usbport, 9600, timeout=1)
 def move(servo, angulo):
 	""" Move servo para angulo: move(servo,angulo)"""
 
-	if (0 <= angle <= 180):
+	if (0 <= angulo <= 180):
 		ser.write(chr(254))
 		ser.write(chr(servo))
 		ser.write(chr(int(angulo)))
+		return 0
 	else:
-		print "O angulo deve estar entre 0 e 180.\n"
+		return -999
 
 def direta(theta1, theta2, theta3):
 	""" Cinemática direta: (theta1, theta2, theta3) -> (x0, y0, z0)
@@ -70,12 +74,12 @@ def CalculaAngulo(x0,y0,z0):
 
 	y1 = -0.5*0.57735*f #f/2 * tg 30
 	y0 -= 0.5*0.57735*e #realiza projeção da junta
-	a = (x0*x0 + y0*y0 + z0*z0 +rf*rf - re*re - y1*y1)/(2*z0)
-	b = (y1-y0)/z0
+	a = (x0**2 + y0**2 + z0**2 +rf**2 - re**2 - y1**2)/(2*(z0+1e-3))
+	b = (y1-y0)/(z0+1e-3)
 	#discriminant
-	d = -(a+b*y1)*(a+b*y1)+rf*(b*b*rf+rf)
+	d = -(a+b*y1)*(a+b*y1)+rf*((b**2)*rf+rf)
 	if (d < 0):
-		return -999 #Ponto fora do espaço de trabalho
+		return (0,-999) #Ponto fora do espaço de trabalho
 	else:
 		yj = (y1 - a*b - sqrt(d))/(b*b + 1) #Escolhendo ponto externo
 		zj = a + b*yj
@@ -85,16 +89,13 @@ def inversa(x0,y0,z0):
 	"""Cinemática inversa: inversa(x0, y0, z0) -> (theta1, theta2, theta3)
 	Status do retorno: -999 = posição fora do espaço de trabalho"""
 
-	theta1 = theta2 = theta3 = 0;
 	status = CalculaAngulo(x0, y0, z0)
 	if (status[1] == 0):
-		move(1,status[0])
-	if (status[1] == 0):
+		move(1,134-status[0])
 		status = CalculaAngulo(x0*cos120 + y0*sin120, y0*cos120-x0*sin120, z0) #rotaciona +120 deg
 		if (status[1] == 0):
-			move(2,status[0])
-	if (status == 0):
-		status = CalculaAngulo(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0) #rotaciona -120 deg
-		if (status[1] == 0):
-			move(3,status[0])
+			move(2,133-status[0])
+			status = CalculaAngulo(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0) #rotaciona -120 deg
+			if (status[1] == 0):
+				move(3,30-status[0])
 	return status[1]
