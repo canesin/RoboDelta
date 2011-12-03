@@ -5,10 +5,6 @@ Servo servo1;
 Servo servo2;
 Servo servo3;
 
-// Common servo setup values
-int minPulse = 600;   // minimum servo position, us (microseconds)
-int maxPulse = 2400;  // maximum servo position, us
-
 // User input for servo and position
 int userInput[3];    // raw input from serial buffer, 3 bytes
 int startbyte;       // start byte, begin reading input
@@ -24,10 +20,14 @@ int pinState = LOW;
 void setup() 
 { 
   // Attach each Servo object to a digital pin
-  servo1.attach(5, minPulse, maxPulse);
-  servo2.attach(6, minPulse, maxPulse);
-  servo3.attach(7, minPulse, maxPulse);
-
+  servo1.attach(9);
+  servo2.attach(10);
+  servo3.attach(11);
+  servo1.write(160);
+  servo2.write(160);
+  servo3.write(0);
+  delay(5000);
+  
   // LED on Pin 13 for digital on/off demo
   pinMode(ledPin, OUTPUT);
 
@@ -38,15 +38,8 @@ void setup()
 void loop() 
 { 
   
-  if (start == 0) {
-    servo1.write(0);
-    servo2.write(0);
-    servo3.write(0);
-    delay(1500);    
-  }
   // Wait for serial input (min 3 bytes in buffer)
   if (Serial.available() > 3) {
-    start=1;
     // Read the first byte
     startbyte = Serial.read();
     // If it's really the startbyte (255) ...
@@ -89,4 +82,3 @@ void loop()
     }
   }
 }
-
