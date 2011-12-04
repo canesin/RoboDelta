@@ -17,7 +17,6 @@ sin30 = 0.5
 tan30 = 1/sqrt(3)
 t = (f-e)*tan30/2.0
 dtr = pi/180.0
-
 usbport = '/dev/tty.usbserial-A700fkJk'
 ser = Serial(usbport, 9600, timeout=1)
 
@@ -25,7 +24,7 @@ def move(servo, angulo):
 	""" Move servo para angulo: move(servo,angulo)"""
 
 	if (0 <= angulo <= 180):
-		ser.write(chr(254))
+		ser.write(chr(255))
 		ser.write(chr(servo))
 		ser.write(chr(int(angulo)))
 		return 0
@@ -91,11 +90,11 @@ def inversa(x0,y0,z0):
 
 	status = CalculaAngulo(x0, y0, z0)
 	if (status[1] == 0):
-		move(1,134-status[0])
+		move(1,136-status[0])
 		status = CalculaAngulo(x0*cos120 + y0*sin120, y0*cos120-x0*sin120, z0) #rotaciona +120 deg
 		if (status[1] == 0):
 			move(2,133-status[0])
 			status = CalculaAngulo(x0*cos120 - y0*sin120, y0*cos120+x0*sin120, z0) #rotaciona -120 deg
 			if (status[1] == 0):
-				move(3,30-status[0])
+				move(3,status[0]+27)
 	return status[1]

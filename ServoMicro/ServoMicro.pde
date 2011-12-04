@@ -9,9 +9,8 @@ Servo servo3;
 int userInput[3];    // raw input from serial buffer, 3 bytes
 int startbyte;       // start byte, begin reading input
 int servo;           // which servo to pulse?
-int pos=0;             // servo angle 0-180
+int pos;             // servo angle 0-180
 int i;               // iterator
-int start=0;        // Start in upper position
 
 // LED on Pin 13 for digital on/off demo
 int ledPin = 13;
@@ -27,7 +26,7 @@ void setup()
   servo2.write(160);
   servo3.write(0);
   delay(5000);
-  
+
   // LED on Pin 13 for digital on/off demo
   pinMode(ledPin, OUTPUT);
 
@@ -37,13 +36,13 @@ void setup()
 
 void loop() 
 { 
-  
+
   // Wait for serial input (min 3 bytes in buffer)
   if (Serial.available() > 2) {
     // Read the first byte
     startbyte = Serial.read();
-    // If it's really the startbyte (254) ...
-    if (startbyte == 254) {
+    // If it's really the startbyte (255) ...
+    if (startbyte == 255) {
       // ... then get the next two bytes
       for (i=0;i<2;i++) {
         userInput[i] = Serial.read();
@@ -53,32 +52,37 @@ void loop()
       // Second byte = which position?
       pos = userInput[1];
       // Packet error checking and recovery
-      if (pos == 255) { servo = 255; }
-
+      if (pos == 255) { 
+        servo = 255; 
+      }
       // Assign new position to appropriate servo
       switch (servo) {
-        case 1:
-          servo1.write(pos);    // move servo1 to 'pos'
-          break;
-        case 2:
-          servo2.write(pos);
-          break;
-        case 3:
-          servo3.write(pos);
-          break;
-
-        // LED on Pin 13 for digital on/off demo
-        case 99:
-          if (pos == 180) {
-            if (pinState == LOW) { pinState = HIGH; }
-            else { pinState = LOW; }
+      case 1:
+        servo1.write(pos);    // move servo1 to 'pos'
+        break;
+      case 2:
+        servo2.write(pos);
+        break;
+      case 3:
+        servo3.write(pos);
+        break;
+      case 99:  // LED on Pin 13 for digital on/off demo
+        if (pos == 180) {
+          if (pinState == LOW) { 
+            pinState = HIGH; 
           }
-          if (pos == 0) {
-            pinState = LOW;
+          else { 
+            pinState = LOW; 
           }
-          digitalWrite(ledPin, pinState);
-          break;
+        }
+        if (pos == 0) {
+          pinState = LOW;
+        }
+        digitalWrite(ledPin, pinState);
+        break;
       }
     }
   }
 }
+
+
