@@ -8,11 +8,14 @@
 
 ## Usage
 
-* Just read the program
+* Just read the program Quadrado.py
 
 ## Requirements
 
-* [CPP](http://www.gcc.org)
+* [Python](http://www.python.org/)
+* [PySerial](http://pyserial.sourceforge.net/)
+
+And wish to be happy!
 
 ## More
 
