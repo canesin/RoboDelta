@@ -8,7 +8,6 @@ f = 264.85
 e = 126.22
 re = 280.0
 rf = 70.0
-
 # Constantes trigonométricas
 sin120 = sqrt(3)/2.0
 cos120 = -0.5

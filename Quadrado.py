@@ -2,35 +2,27 @@ import RDelta
 from time import sleep
 
 print "Esperando 6 segundos para estabilizar o sistema"
-sleep(6)
+sleep(5)
 RDelta.inversa(0,0,-250)
 print "Posicionando efetuador"
 sleep(1)
 RDelta.inversa(0,0,-260)
 sleep(0.25)
-RDelta.inversa(0,0,-265)
-sleep(0.25)
-RDelta.inversa(0,0,-267)
-sleep(0.25)
-RDelta.inversa(0,0,-270)
-sleep(0.25)
-RDelta.inversa(0,0,-272)
-sleep(0.25)
-RDelta.inversa(0,0,-274)
-sleep(0.25)
-RDelta.inversa(0,15,-273)
-sleep(0.25)
-RDelta.inversa(0,20,-273)
-sleep(0.25)
-RDelta.inversa(0,25,-273)
-sleep(0.25)
-RDelta.inversa(0,30,-273)
-sleep(0.25)
-RDelta.inversa(0,35,-273)
-sleep(0.25)
-RDelta.inversa(0,40,-272)
-sleep(0.25)
-RDelta.inversa(0,45,-272)
-sleep(0.25)
-RDelta.inversa(0,50,-272)
-sleep(0.25)
+
+passo=3
+
+for i in range(0,100+passo,passo):
+	RDelta.inversa(i,0,-260)
+	sleep(0.1)
+
+for i in range(0,100+passo,passo):
+	RDelta.inversa(100,i,-260)
+	sleep(0.1)
+	
+for i in range(100,0-passo,-passo):
+	RDelta.inversa(i,100,-260)
+	sleep(0.1)
+	
+for i in range(100,0-passo,-passo):
+	RDelta.inversa(0,i,-260)
+	sleep(0.1)
