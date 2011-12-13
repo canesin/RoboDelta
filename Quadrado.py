@@ -9,20 +9,20 @@ sleep(1)
 RDelta.inversa(0,0,-260)
 sleep(0.25)
 
-passo=3
+passo=4
 
-for i in range(0,100+passo,passo):
+for i in range(0,120+passo,passo):
 	RDelta.inversa(i,0,-260)
-	sleep(0.1)
+	sleep(0.15)
 
-for i in range(0,100+passo,passo):
-	RDelta.inversa(100,i,-260)
-	sleep(0.1)
+for i in range(0,120+passo,passo):
+	RDelta.inversa(120,i,-260)
+	sleep(0.15)
 	
 for i in range(100,0-passo,-passo):
-	RDelta.inversa(i,100,-260)
-	sleep(0.1)
+	RDelta.inversa(i,120,-260)
+	sleep(0.15)
 	
-for i in range(100,0-passo,-passo):
+for i in range(120,0-passo,-passo):
 	RDelta.inversa(0,i,-260)
-	sleep(0.1)
+	sleep(0.15)
