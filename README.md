@@ -1,8 +1,8 @@
-# ConvergeInc/LHW-UFSC Delta robot
+# LHW-UFSC Delta robot
 
-*[LHW-UFSC](http://www.lhw.ufsc.br/ "LHW-UFSC") developed Delta-ROBOT for technology demonstration, developed in colaboration with [Converge-ES](http://www.converge-es.com/ "Converge Engineering Solutions")*
+*[LHW-UFSC](http://www.lhw.ufsc.br/ "LHW-UFSC") developed Delta-ROBOT for technology demonstration, developed in colaboration with Fabio C. Canesin*
 
-*(Special thanks for the robot math help to Julio Golin - julio_golin@yahoo.com.br )*
+*(Special thanks to Julio Golin for the control chats - julio_golin@yahoo.com.br )*
 
 *Uses constants the most posible for awsome performance
 
