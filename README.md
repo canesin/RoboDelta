@@ -14,9 +14,3 @@
 
 * [Python](http://www.python.org/)
 * [PySerial](http://pyserial.sourceforge.net/)
-
-And wish to be happy!
-
-## More
-
-Read more about it in www.delta.converge-es.com
